@@ -1,0 +1,84 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.myutils</groupId>
+	<artifactId>myutils</artifactId>
+	<version>1.0</version>
+
+
+	<properties>
+		<spark.version>1.4.1</spark.version>
+		<fastjson.version>1.2.5</fastjson.version>
+		<log4j.version>1.7.21</log4j.version>
+		<junit.version>4.11</junit.version>
+		<jmail.version>1.4.6</jmail.version>
+	</properties>
+
+	<dependencies>
+
+		<!-- slf4j -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<!-- junit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- javax.mail -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>${jmail.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>javax.mail-api</artifactId>
+			<version>${jmail.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.spark</groupId>
+			<artifactId>spark-core_2.10</artifactId>
+			<version>${spark.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>${fastjson.version}</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<!-- see http://davidb.github.com/scala-maven-plugin -->
+				<groupId>net.alchim31.maven</groupId>
+				<artifactId>scala-maven-plugin</artifactId>
+				<version>3.2.2</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<goal>testCompile</goal>
+						</goals>
+						<configuration>
+							<args>
+								<arg>-dependencyfile</arg>
+								<arg>${project.build.directory}/.scala_dependencies</arg>
+							</args>
+						</configuration>
+					</execution>
+				</executions>
+				<configuration>
+					<scalaVersion>2.10.5</scalaVersion>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
