@@ -3,6 +3,8 @@ package com.myutils
 import org.apache.spark.SparkConf
 import org.apache.spark.SparkContext
 import org.apache.spark.rdd.RDD
+import com.alibaba.fastjson.JSON
+import scala.util.Try
 
 class TestSpark {
   
@@ -21,7 +23,18 @@ object TestSpark{
   
   def main(args: Array[String]): Unit = {
     val sc = initSpark
-    wordCount(sc)
+//    wordCount(sc)
+    testJsonObject(sc)
+  }
+  
+  def testJsonObject(sc: SparkContext){
+    val rdd = sc.textFile("C:\\Users/july/Desktop/logs/hl/hllaunch2017010514985457860009391752.txt")
+    val jsonRdd =rdd.map(x => {
+        Try(JSON.parseObject(x))
+      }).filter(_.isSuccess).map(_.get)
+      for(x<-jsonRdd.collect()){
+        println(x.getString("event"))
+      }
   }
   
   def testSpark(sc: SparkContext){
@@ -55,7 +68,14 @@ object TestSpark{
         println()
          val testResult2 = pairs.reduceByKey((_, _) => 1)
         println("=============testResult2===========")
-        testResult.foreach(e => print(e))
+        testResult2.foreach(e => print(e))
+        println()
+        val testResult3 = pairs.map(x =>{
+          val y = x._2+1
+          (x._1,y)
+        })
+        println("=============testResult3===========")
+        testResult3.foreach(e => print(e))
         println()
         
         val result = pairs.reduceByKey((word, acc) => word + acc)
