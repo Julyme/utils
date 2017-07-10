@@ -5,12 +5,24 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Properties;
+import java.util.ResourceBundle;
 
 public class PropertiesUtils {
 	
 	private static final String file_name = "myUtils.properties";
 	
 	private static Properties prop = loadProperties(file_name);
+	
+	private  static ResourceBundle appRb = ResourceBundle.getBundle("myUtils");
+	
+	public static String getString(String key, String defaults){
+		try {
+			return appRb.getString(key);
+		} catch (Exception e) {
+		}
+		
+		return defaults;
+	}
 
 	public static String getString(String key) {
 		if (prop==null) {

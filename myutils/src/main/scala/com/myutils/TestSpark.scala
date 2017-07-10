@@ -24,7 +24,8 @@ object TestSpark{
   def main(args: Array[String]): Unit = {
     val sc = initSpark
 //    wordCount(sc)
-    testJsonObject(sc)
+//    testJsonObject(sc)
+    fenkaihebin(sc)
   }
   
   def testJsonObject(sc: SparkContext){
@@ -96,6 +97,19 @@ object TestSpark{
         println("警告信息数目： "+warnInfo.count())
         //取前10条数据
         warnInfo.take(10).foreach(println(_))
+	}
+	
+	def fenkaihebin(sc: SparkContext){
+	  val s = sc.parallelize(List((1,"a"),(2,"b"),(3,"c")))
+	      s.foreach(println(_))
+	    val timestamp = 2
+	   val s1 = s.filter(x=> x._1<timestamp)
+	   s1.foreach(println(_))
+	   val s2 = s.filter(x=> x._1>timestamp)
+	   s2.foreach(println(_))
+	   
+	   val s3 = s1.++(s2)
+	   s3.foreach(println(_))
 	}
 	
   
