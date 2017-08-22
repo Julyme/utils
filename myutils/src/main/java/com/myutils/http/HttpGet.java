@@ -24,7 +24,7 @@ public class HttpGet {
     protected static final int SOCKET_TIMEOUT = 10000; // 10S
     protected static final String GET = "GET";
 
-    public static String get(String host, Map<String, String> params) {
+    public static String get(String host, Map<String, String> header, Map<String, String> params) {
         try {
             // 设置SSLContext
             SSLContext sslcontext = SSLContext.getInstance("TLS");
@@ -35,10 +35,13 @@ public class HttpGet {
             // System.out.println("URL:" + sendUrl);
 
             URL uri = new URL(sendUrl); // 创建URL对象
+            
             HttpURLConnection conn = (HttpURLConnection) uri.openConnection();
+            setHeader(conn,header);
             if (conn instanceof HttpsURLConnection) {
                 ((HttpsURLConnection) conn).setSSLSocketFactory(sslcontext.getSocketFactory());
             }
+            
 
             conn.setConnectTimeout(SOCKET_TIMEOUT); // 设置相应超时
             conn.setRequestMethod(GET);
@@ -74,6 +77,21 @@ public class HttpGet {
         }
 
         return null;
+    }
+    
+    private static void setHeader(HttpURLConnection conn, Map<String, String> header) {
+    	if(header == null){
+    		return;
+    	}
+		if(header.size() > 0){
+			for (String key : header.keySet()) {
+				conn.setRequestProperty(key, header.get(key));
+			}
+		}
+	}
+
+	public static String get(String host, Map<String, String> params) {
+    	return get(host, null, params);
     }
 
     public static String getUrlWithQueryString(String url, Map<String, String> params) {
