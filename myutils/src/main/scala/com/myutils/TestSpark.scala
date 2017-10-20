@@ -5,8 +5,16 @@ import org.apache.spark.SparkContext
 import org.apache.spark.rdd.RDD
 import com.alibaba.fastjson.JSON
 import scala.util.Try
+import java.util.TimeZone
+import java.lang.Long
 
 class TestSpark {
+  
+  val  l = Long.parseLong("")
+
+  val s = "2017-1-1"
+  val ss = s.split("-")
+  
   
 }
 

@@ -21,6 +21,7 @@ public class KafkaUtils {
     private static Properties properties = PropertiesUtils.loadProperties("kafka-producer.properties");
     private static KafkaProducer<String, String> producer = new KafkaProducer<String, String>(properties);
     
+    private static int count = 0;
     
     private static Callback callback = new Callback() {
         // 异步请求返回，也是异步请求的一个标志
@@ -28,18 +29,29 @@ public class KafkaUtils {
         public void onCompletion(RecordMetadata metadata, Exception exception) {
             if (exception != null) {
                 logger.error("Send Data Error:- " + exception.getMessage());
+                System.out.println(++count);
             }
         }
     };
     
     public static void sendData(String topic, String data){
         producer.send(
-                new ProducerRecord<String, String>(topic, data),callback);
+                new ProducerRecord<String, String>(topic, data),callback); 
     }
     
     public static void main(String[] args) {
        KafkaUtils kafkaUtils = new KafkaUtils();
-       kafkaUtils.sendData("ghwdata", kafkaUtils.data);
+       long t= System.currentTimeMillis();
+       for (int i = 1; i <= 1000*10000; i++) {
+    	   kafkaUtils.sendData("ghwdata", kafkaUtils.data);
+	}
 //       System.out.println(kafkaUtils.properties);
+       System.out.println("发送完毕:"+(System.currentTimeMillis() - t));
+       
+       try {
+		Thread.sleep(600*1000);
+	} catch (InterruptedException e) {
+		e.printStackTrace();
+	}
     }
 }

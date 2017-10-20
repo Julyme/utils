@@ -19,23 +19,68 @@
 		<hadoop.version>2.7.3</hadoop.version>
 		<mockito.version>2.3.6</mockito.version>
 		<zkclient.version>2.1.1</zkclient.version>
+		<com.101tec.zkclient.version>0.3</com.101tec.zkclient.version>
 		<zookeeper.version>3.4.6</zookeeper.version>
 		<kafka.version>0.8.2.2</kafka.version>
+		<quartz.version>2.2.1</quartz.version>
+		<hbase.version>1.1.1</hbase.version>
+		<jmockit.version>1.35</jmockit.version>
+		<elasticsearch-spark.version>2.3.4</elasticsearch-spark.version>
 	</properties>
 
 	<dependencies>
-	
-	<dependency>
-    <groupId>com.101tec</groupId>
-    <artifactId>zkclient</artifactId>
-    <version>0.3</version>
-       </dependency>
 
-	<dependency>
-		<groupId>org.apache.kafka</groupId>
-		<artifactId>kafka-clients</artifactId>
-		<version>${kafka.version}</version>
-	</dependency>
+		<dependency>
+			<groupId>org.elasticsearch</groupId>
+			<artifactId>elasticsearch-spark_2.10</artifactId>
+			<version>${elasticsearch-spark.version}</version>
+			<exclusions>
+                <exclusion>
+                    <artifactId>log4j-over-slf4j</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+
+            </exclusions>
+		</dependency>
+		
+		 
+
+		<dependency>
+			<groupId>org.jmockit</groupId>
+			<artifactId>jmockit</artifactId>
+			<version>${jmockit.version}</version>
+			<scope>test</scope>
+		</dependency>
+ 
+		<!-- <dependency>
+			<groupId>org.apache.hbase</groupId>
+			<artifactId>hbase-server</artifactId>
+			<version>${hbase.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.servlet</groupId>
+					<artifactId>*</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency> -->
+
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>${quartz.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.101tec</groupId>
+			<artifactId>zkclient</artifactId>
+			<version>${com.101tec.zkclient.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka-clients</artifactId>
+			<version>${kafka.version}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.apache.zookeeper</groupId>
@@ -60,6 +105,12 @@
 			<groupId>org.apache.hadoop</groupId>
 			<artifactId>hadoop-yarn-server-resourcemanager</artifactId>
 			<version>${hadoop.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.servlet</groupId>
+					<artifactId>*</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- leveldb -->
@@ -184,8 +235,9 @@
 		<dependency>
 			<groupId>jdk.tools</groupId>
 			<artifactId>jdk.tools</artifactId>
-			<version>1.8</version>
+			<version>1.7</version>
 		</dependency>
+
 
 	</dependencies>
 
@@ -227,8 +279,8 @@
 					</execution>
 				</executions>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+					<source>1.7</source>
+					<target>1.7</target>
 				</configuration>
 			</plugin>
 

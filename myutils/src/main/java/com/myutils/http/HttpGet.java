@@ -20,6 +20,11 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+/**
+ * 
+ * @author julyme
+ * @date 2017年10月19日
+ */
 public class HttpGet {
     protected static final int SOCKET_TIMEOUT = 10000; // 10S
     protected static final String GET = "GET";
@@ -109,7 +114,10 @@ public class HttpGet {
         int i = 0;
         for (String key : params.keySet()) {
             String value = params.get(key);
-            if (value == null) { // 过滤空的key
+            /**
+             *  过滤空的key
+             */
+            if (value == null) { 
                 continue;
             }
 

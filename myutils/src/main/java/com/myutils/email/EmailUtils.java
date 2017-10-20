@@ -12,7 +12,11 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import com.myutils.properties.PropertiesUtils;
-
+/**
+ * 
+ * @author julyme
+ * @date 2017年10月19日
+ */
 public class EmailUtils {
 
 	public static void sendEmai(String toMail, String mailTitle,

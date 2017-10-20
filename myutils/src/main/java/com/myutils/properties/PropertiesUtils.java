@@ -7,6 +7,10 @@ import java.net.URL;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
+/**
+ * @author julyme
+ * @date 2017年10月19日
+ */
 public class PropertiesUtils {
 	
 	private static final String file_name = "myUtils.properties";
